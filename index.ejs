@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My EJS Template</title>
+</head>
+<body>
+    <style>
+     #description {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+     }
+     #title {
+      display: flex;
+      justify-content: center;
+     }
+     .navbar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+     }
+     .navbar a {
+      text-decoration: none;
+      color: black;
+      font-size: 17px;
+      padding: 10px;
+      border: 1px solid black;
+      border-color: rgb(215, 213, 213);
+      margin: 10px;
+     }
+        .product-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around; 
+        }
+
+.product {
+  width: 30%; 
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; 
+}
+</style>
+
+
+
+
+
+  <h1 id="title">Drezzstore</h1>
+<p id="description">Page for staff to see all products. 
+  To change a product, use insomnia or MongoDB</p>
+
+<div class="navbar">
+<a href="/">All products</a>
+  <a href="#" onclick="filterProducts('Shoes')">Shoes</a>
+  <a href="#" onclick="filterProducts('Jacket')">Jackets</a>
+  <a href="#" onclick="filterProducts('Hats')">Hats</a>
+  <a href="#" onclick="filterProducts('Pants')">Pants</a>
+  <a href="#" onclick="filterProducts('Other')">Other</a>
+
+
+</div>
+
+  <div class="product-container">
+    <% products.forEach(product => { %>
+      <div class="product" data-category="<%= product.category %>">
+        <h2><%= product.name %></h2>
+        <p>Description: <%= product.description %></p>
+        <p>Price: <%= product.price %> SEK</p>
+        <p>Quantity: <%= product.quantity %></p>
+        <p>Category: <%= product.category %></p>
+      </div>
+    <% }); %>
+  </div>
+
+
+  <script>
+    function filterProducts(category) {
+      const products = document.querySelectorAll('.product');
+      products.forEach(product => {
+        const productCategory = product.getAttribute('data-category');
+        if (productCategory === category) {
+          product.style.display = 'block';
+        } else {
+          product.style.display = 'none';
+        }
+      });
+    }
+    </script>
+
+</body>
+</html>
